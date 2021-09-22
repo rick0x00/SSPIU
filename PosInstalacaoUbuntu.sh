@@ -1,4 +1,5 @@
 #!/bin/bash
+username=$USER;
 sudo echo "Start";
 
 hash="#############################################################";
@@ -12,25 +13,6 @@ user="anonimo";
 dir=$(pwd);
 cd /etc
 
-echo  -e "    \e[46m        \e[0m     \e[46m        \e[0m       \e[46m               \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m     \e[46m                 \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m   \e[46m                   \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m  \e[46m       \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m  \e[46m       \e[0m
-    \e[46m                     \e[0m  \e[46m                    \e[0m
-    \e[46m                     \e[0m  \e[46m                    \e[0m
-    \e[46m                     \e[0m  \e[46m                    \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m               \e[46m       \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m               \e[46m       \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m  \e[46m                    \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m  \e[46m                   \e[0m
-    \e[46m        \e[0m     \e[46m        \e[0m  \e[46m                  \e[0m
-                 \e[46m        \e[0m 
-                 \e[46m        \e[0m";
-
-echo "$hash";
-echo -n "digite o nome do seu usuário padrão: ";
-read user;
 echo "$hash";
 
 PACK(){
@@ -182,7 +164,7 @@ Instalando_VirtualBox(){
 	sudo chmod 777 Oracle_VM_VirtualBox_Extension_Pack-6.1.12.vbox-extpack;
 	sudo VBoxManage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.12.vbox-extpack;
 	sudo rm Oracle_VM_VirtualBox_Extension_Pack-6.1.12.vbox-extpack;
-	sudo usermod -a -G vboxusers "$user";
+	sudo usermod -a -G vboxusers "$username";
 	echo "$linha";
 	echo -e "\e[42m   $FIM   \e[0m";
 	echo "$linha";
@@ -396,8 +378,8 @@ Instalando_ArduinoIDE(){
 	sudo ./install.sh;
 	cd ..;
 	sudo rm -rf arduino*;
-	sudo usermod -a -G dialout "$user";
-	cd /home/"$user";
+	sudo usermod -a -G dialout "$username";
+	cd /home/"$username";
 	sudo chmod 777 -R Arduino/;
 	echo "$linha";
 	echo -e "\e[42m   $FIM   \e[0m";
@@ -409,9 +391,9 @@ Instalando_Esp32BoardLibArduinoIDE(){
 	echo "$hash";
 	echo "Instalando placa esp32 na ArduinoIDE)";
 	echo "$hash";
-	sudo usermod -a -G dialout "$user";
-	mkdir -p /home/"$user"/Arduino/hardware/espressif;
-	cd /home/"$user"/Arduino/hardware/espressif;
+	sudo usermod -a -G dialout "$username";
+	mkdir -p /home/"$username"/Arduino/hardware/espressif;
+	cd /home/"$username"/Arduino/hardware/espressif;
 	git clone https://github.com/espressif/arduino-esp32.git esp32;
 	cd esp32/tools/;
 	sudo python3 get.py;
@@ -431,8 +413,8 @@ Instalando_PlatformIO(){
 	curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 	sudo cp 99-platformio-udev.rules /etc/udev/rules.d/99-platformio-udev.rules
 	sudo service udev restart
-	sudo usermod -a -G dialout $USER
-	sudo usermod -a -G plugdev $USER
+	sudo usermod -a -G dialout $username
+	sudo usermod -a -G plugdev $username
 	echo "$linha";
 	echo -e "\e[42m   $FIM   \e[0m";
 	echo "$linha";
